@@ -1,11 +1,20 @@
-
 import './App.css';
 import Sign_in from './component/signin';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import Register from './component/Register';
 
-function App() {
+
+const App = () => {
   return (
     <div className="App">
-      <Sign_in />
+      <Router>
+        <Routes>
+          <Route path={"/"} element={<Sign_in />} />
+          <Route path={"/Register"} element={<Register />} />
+        </Routes>
+      </Router>
+
+
     </div>
   );
 }

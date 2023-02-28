@@ -37,7 +37,7 @@ color: #5C5C5C;
 opacity: 1;
 }
 .left-side{
-width: 45vw;
+width: 50vw;
 padding-top:30vh;       
 padding-left: 10vw;
 }
@@ -55,16 +55,19 @@ padding-left: 10vw;
     font-size: 12px;
     color: #565657;
 }
-button{
+.btns { 
     margin-top: 2vh;
-    height:5vh ;
-    border-radius: 20px;
     background-color: #278DF1;
-    color: white;
+    border-radius: 15px;
+    color: whitesmoke;
     border: none;
     outline: none;
-    width: 10vw
+    font-family: 'Montserrat', sans-serif;
+    width: 12vw;
+    height: 6vh;
+    font-size: 10px;
 }
+
 
 /* Right Side */
 .Inner-box{
@@ -73,7 +76,7 @@ height: 55vh;
 width:30vw;
 background: #FFFFFF 0% 0% no-repeat padding-box;
 box-shadow: 0px 3px 30px #00000029;
-border-radius: 41px;
+border-radius: 20px;
 opacity: 1;
 /* text-align: center; */
 }
@@ -85,11 +88,15 @@ opacity: 1;
     opacity: 1;
     padding-top: 5vh;
 }
+
 .Below-heading{
     text-align: center;
     padding-top: 3vh;
     color: #808080;
+    font-size: 1.5vw;
 }
+
+
 .inp{
     left:0;
     color:#77838F;
@@ -101,5 +108,12 @@ opacity: 1;
 }
 .signin-button{
     margin-top: 7vh;
-    margin-left:10vw
+    margin-left:10vw;
+    border-radius: 20px;
+    background-color: #278DF1;
+    color: white;
+    border: none;
+    outline: none;
+    width: 10vw;
 }
+

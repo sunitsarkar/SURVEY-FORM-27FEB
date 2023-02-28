@@ -1,13 +1,19 @@
 import "./signin.css";
-function Sign_in() {
+import { Link } from "react-router-dom";
 
+
+
+const Sign_in = () => {
     return <div className="frontpage">
         <div className="left-side">
             <div className="welcome-text">Welcome Page</div>
             <div className="below-text">One line text Will be here</div>
             <div className="text-small">Sign in to continue access pages</div>
             <div className="small-text">Don’t Have An Account?</div>
-            <button>Register</button>
+            <Link to={"/Register"}>
+                <button  className="btns">Register</button>
+            </Link>
+
         </div>
         <div className="right-side">
             <div className="Inner-box">
@@ -19,7 +25,7 @@ function Sign_in() {
                 <div className="inp">
                     <input className="hov" placeholder="Password" type="password" />
                 </div>
-                <button className="signin-button">Sign In</button>
+                <button className="signin-button"  >Sign In</button>
             </div>
         </div>
     </div>
