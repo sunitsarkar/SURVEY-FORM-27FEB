@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./Register.css"
 
 
@@ -9,14 +10,16 @@ const Register = () => {
                 <div className="below-text">One line text Will be here</div>
                 <div className="text-small">Sign in to continue access pages</div>
                 <div className="small-text">Already Have An Account?</div>
+                <Link to={'/'}>
                 <button id="btn-signin" >Sign In</button>
+                </Link>
             </div>
             <div className="container">
                     <form>
                         <div className="heading1">Register</div>
                         <div className="heading2" >Register to continue access pages</div>
                         <div className="input-box">
-                            <input type={'text'} placeholder={"Name"} />
+                            <input type={'text'} placeholder={"Name"} /> 
                             <input type={'email'} placeholder={"Email"} />
                         </div>
                         <div className="input-box">
