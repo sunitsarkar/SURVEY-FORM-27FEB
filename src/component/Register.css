@@ -64,7 +64,7 @@
 .container {
     height: 80vh;
     width: 40vw;
-    margin-left: 8vw;
+    margin-left: 3vw;
     border-radius: 20px;
     margin-top: 10vh;
     background: #FFFFFF 0% 0% no-repeat padding-box;
@@ -101,28 +101,32 @@ input:focus {
 }
 
 
-.input[type=text],
-input[type=password] {
+.reg-input {
     border: none;
     border-bottom: 1px solid lightgray;
+    margin: 1vw;
+    margin-left: 3vw;
 }
 
-.input[type=text],
-input[type=text] {
+.reg-input {
     border: none;
     border-bottom: 1px solid lightgray;
+    margin: 1vw;
+    margin-left: 3vw;
 }
 
-.input[type=text],
-input[type=email] {
+.reg-input {
     border: none;
     border-bottom: 1px solid lightgray;
+    margin: 1vw;
+    margin-left: 3vw;
 }
 
-.input[type=text],
-input[type=number] {
+.reg-input {
     border: none;
     border-bottom: 0.8px solid lightgray;
+    margin: 1vw;
+    margin-left: 3vw;
 }
 
 .input-box {
@@ -130,6 +134,7 @@ input[type=number] {
     margin-left: 1vw;
     margin-top: 6vh;
     margin-bottom: 3vw;
+    margin-left: 3vw;
 }
 
 input::placeholder {
@@ -141,12 +146,14 @@ input::placeholder {
 .checkbox-text {
     color: #53A4F4;
     opacity: 100%;
-    font-size: 8px;
+    font-size: 10px;
     text-decoration: underline;
+    margin-left: 0.5vw;
 }
 
 #checkbox {
     margin-left: 4vw;
+    margin-left: 8vw;
 }
 
 
@@ -161,5 +168,5 @@ input::placeholder {
     width: 12vw;
     height: 6vh;
     font-size: 10px;
-    margin-left: 13vw; 
+    margin-left: 14vw; 
 }
