@@ -31,7 +31,7 @@ const Register = () => {
         } catch (error) {
             console.error(error);
         }
-        navigate("/")
+        navigate("/");
     };
 
     return (
