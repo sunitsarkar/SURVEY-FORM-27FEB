@@ -2,7 +2,7 @@ import './App.css';
 import Sign_in from './component/signin';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import Register from './component/Register';
-import Navigation from './component/nav';
+import Navigation from './component/surveylist';
 import SurveyPage from './component/SurveyPage/SurveyPage';
 
 

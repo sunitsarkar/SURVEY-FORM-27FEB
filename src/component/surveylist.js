@@ -5,20 +5,25 @@ import hamburger from './assets/hamburger.svg';
 import sort from './assets/sort.svg';
 import filter from './assets/sortfilter.svg'
 import person from './assets/person.svg'
-import "./nav.css"
+import "./SurveyList.css"
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 function Navigation() {
+    const navigate=useNavigate()
+    // function get
+
     return <>
         <div className="main">
             <div className="left-nav">
                 <span>
-                <img src={logo1} alt="logo1" />
+                    <img src={logo1} alt="logo1" />
                 </span>
                 <span className="icon2">
-                <img  src={logo2} alt="logo2" />
+                    <img src={logo2} alt="logo2" />
                 </span>
                 <span className="three-line">
-                <img className="three" src={hamburger} alt="hamburger" />
+                    <img className="three" src={hamburger} alt="hamburger" />
                 </span>
             </div>
             <div className="right-side">
@@ -31,7 +36,7 @@ function Navigation() {
                             </select> </span>
                     </span>
                     <div className="picture-nav">
-                    <img className="sort-image-person" src={person} alt="Person" />
+                        <img className="sort-image-person" src={person} alt="Person" />
                     </div>
                 </div>
                 {/* ----------------------------------------------- */}
@@ -41,10 +46,10 @@ function Navigation() {
                     </div>
                     <div className="search-container">
                         <input className="search" type="text" placeholder="Search" />
-                        <button>Create</button>
-                       <img className="sort-image" src={sort} alt="sort" />
-                       <img className="sort-image" src={filter} alt="sort" />
-                        
+                        <button onClick={()=>navigate('/Surveypage')}>Create</button>
+                        <img className="sort-image" src={sort} alt="sort" />
+                        <img className="sort-image" src={filter} alt="sort" />
+
                     </div>
                 </div>
 
