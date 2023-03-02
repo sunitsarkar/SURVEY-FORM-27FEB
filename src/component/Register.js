@@ -8,11 +8,17 @@ const Register = () => {
     const navigate = useNavigate()
 
     const [name, setName] = useState('');
+    // const [isValid, setIsValid] = useState();                 // for error name
     const [email, setEmail] = useState('');
+    const [emailError, setEmailError] = useState('');            // for email error
     const [phone, setPhone] = useState(0);
     const [profession, setProfession] = useState('');
-    const [password, setPassword] = useState(0);
+    const [isValid, setIsValid] = useState(false);               // for incorrect profession
+    const [password, setPassword] = useState('');
+    const [validPassword, setValidPassword] = useState("");      // validating password error
+    const [passErr, setPassErr] = useState(false)                // for password error
     const [confirmPassword, setConfirmPassword] = useState(0);
+    const [error, setError] = useState("");
 
     const handelSubmit = async (e) => {
 
@@ -33,7 +39,71 @@ const Register = () => {
             console.error(error);
         }
         navigate("/");
+    }
+
+    // validating profession input
+    const validateProfession = (input) => {
+        const regex = /^[a-zA-Z]{1,29}[a-zA-Z]$/;
+        return regex.test(input);
     };
+
+    const handleChange = (e) => {
+        const input = e.target.value;
+        setProfession(input);
+        setIsValid(validateProfession(input));
+    };
+
+    // validating password 
+    const PasswordHandler = (e) => {
+        // const specialCharacters = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+        // const specialLetters = /[A-Za-z]+/;
+        const item = e.target.value;
+             setPassword(item);
+             console.log('passwordhandler ', password);
+        if (item.length < 6) {
+            setPassErr(true)
+        }
+        // else if (!specialCharacters.test(e) || !specialLetters.test(e)) {
+        //     setPassErr(true)
+        // } 
+        else {
+            setPassErr(false)
+        }
+        
+    }
+
+    //validating email address
+    const handleEmailChange = (e) => {
+        const value = e.target.value;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(value)) {
+            setEmailError(<div style={{ color: "red" }}>Please enter a valid email address</div>);
+        } else {
+            setEmail(value);
+            setEmailError('');
+        }
+    }
+
+    // validating confirm password
+    const handleConfirmPasswordChange = (e) => {
+
+        setConfirmPassword(e.target.value);
+        handleConfirmPasswordBlur();
+    };
+
+    // validating passwords are matching or not
+    const handleConfirmPasswordBlur = (e) => {
+        if (password !== confirmPassword) {
+            setError("Password and Confirm Password do not match! ");
+            setValidPassword("");
+        } else {
+            setError("");
+            setValidPassword(password);
+        }
+        console.log("pass ", password , "c pass" , confirmPassword);
+    };
+
+
 
     return (
         <div className="main-div">
@@ -51,18 +121,62 @@ const Register = () => {
                     <div className="heading1">Register</div>
                     <div className="heading2" >Register to continue access pages</div>
                     <div className="input-box">
-                        <input className="reg-input" type={'text'} placeholder={"Name"} onChange={(e) => { setName(e.target.value) }} />
-                        <input className="reg-input" type={'email'} placeholder={"Email"} onChange={(e) => { setEmail(e.target.value) }} />
+                        <input  onChange={(e) => { setName(e.target.value) }}
+                            value={name}
+                            required className="reg-input" type={'text'} placeholder={"Name"}  />
+                        <input className="reg-input"  type={'email'}
+                            placeholder={"Email"}
+                            required
+                            onChange={handleEmailChange} />
+                              {(emailError && emailError.length !== 0) ? <p>{emailError}</p> : null}
+                        {/* to display email error */}
                     </div>
                     <div className="input-box">
-                        <input className="reg-input" type={'number'} placeholder={"Phone"} onChange={(e) => { setPhone(e.target.value) }} />
-                        <input className="reg-input" type={'text'} placeholder={"Profession"} onChange={(e) => { setProfession(e.target.value) }} />
+                    <input
+                         className="reg-input"
+                            type={'text'}
+                            pattern="[0-9]{1}[0-9]{9}"
+                            placeholder={"Phone"}
+                            onChange={(e) => { setPhone(e.target.value) }} />
+                        <input
+                            className="reg-input"
+                            type={'text'}
+                            // required
+                            placeholder={"Profession"}
+                            value={profession}
+                            onChange={handleChange} />
+
+                        {(isValid == 0 && isValid < 31) ? (
+                            // <span style={{ color: "green" }}>Valid profession!</span>
+                            null
+                        ) : (
+                            <div style={{ color: "red" }}>
+                                Profession can only contain upto 30 letters and numbers.
+                            </div>
+                        )}
                     </div>
                     <div className="input-box">
-                        <input className="reg-input" type={'password'} placeholder={"Passowrd"} onChange={(e) => { setPassword(e.target.value) }} />
-                        <input className="reg-input" type={'password'} placeholder={"Confirm Password"} onChange={(e) => { setConfirmPassword(e.target.value) }} />
+                    <input
+                        className="reg-input"
+                            type={'password'}
+                            placeholder={"Password"}
+                            required
+                            onChange={PasswordHandler} />
+
+                        <input
+                        className="reg-input"
+                            type={'password'}
+                            required
+                            placeholder={"Confirm Password"}
+                            onChange={handleConfirmPasswordChange} 
+                            onBlur={handleConfirmPasswordBlur} /> 
+                        {passErr ? <div style={{ color: "red" }} >Password Invalid</div> : null}   {/* // password error displaying here */}
+                        <div>
+                            {error ? <p style={{ color: "red" }}>{error}</p> : null}
+                        </div>
+                        {/* //confirm password error displaying here */}
                     </div>
-                    <input  id="checkbox" type={'checkbox'} /><label className="checkbox-text"> I agree to Terms & Condition receiving marketing and promotional materials</label>
+                    <input  id="checkbox" type={'checkbox'} required /><label className="checkbox-text"> I agree to Terms & Condition receiving marketing and promotional materials</label>
 
                     <button className="btns-1" type="submit" >Register</button>
 
