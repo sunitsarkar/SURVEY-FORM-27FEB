@@ -17,7 +17,7 @@ const SurveyPage = () => {
         const [endDate, setEndDate] = useState();
         const [otherCriteria, setotherCriteria] = useState("");
         const [type, setType] = useState("");
-        const [image, setImage] = useState([]);
+        const [image, setImage] = useState("");
 
     // const AuthSurvey = (e) => {
     //     e.preventDefault();

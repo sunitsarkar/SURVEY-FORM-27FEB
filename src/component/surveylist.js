@@ -1,4 +1,5 @@
-import React from "react"
+import React from "react";
+import { useEffect, useState } from "react"
 import logo1 from './assets/logo.svg';
 import logo2 from './assets/community.svg';
 import hamburger from './assets/hamburger.svg';
@@ -12,6 +13,52 @@ import { useNavigate } from "react-router-dom";
 function Navigation() {
     const navigate=useNavigate()
     // function get
+    function getSurveyList() {
+       
+        return  axios.get('http://localhost:8000/survey/surveys')
+            .then(res => {
+                if(res.status === 200 && res.data){
+                    // console.log("ok")
+                    return res.data
+                }
+                throw new Error('Not able to fetch posts')
+            })
+    }
+
+    function Surveys(){
+
+        const [survey,setsurvey] = useState([])
+    // console.log(getUserPosts())
+        useEffect(()=>{
+            getSurveyList()
+            .then(data =>{
+                // console.log(data)
+                setsurvey(data)
+            }).catch(err=>{
+                alert(err.message)
+            })
+        },[])
+        return <div id="survey-container">
+            {
+                survey.map(list=>{
+                    return <table>
+                    <tr>
+                        <td className="first-tdd">{list.name}</td>
+                        <td className="description-table2">{list.description}</td>
+                        <td className="third-td">{list.type}</td>
+                        <td className="forth-td">{list.startDate} </td>
+                        <td className="fifth-td">{list.endDate}</td>
+                        <td><button>Edit</button><button>Delete</button> </td>
+                    </tr>
+                </table>
+                })
+            }
+    
+        </div>
+    }
+
+
+
 
     return <>
         <div className="main">
@@ -61,16 +108,9 @@ function Navigation() {
                     <span>End Date</span>
                     <span>Action</span>
                 </div>
-                <table>
-                    <tr>
-                        {/* <td>Survey Name</td>
-                        <td className="table-desc">This survey is about this topic </td>
-                        <td>Feedback </td>
-                        <td>10-feb-2020 </td>
-                        <td>27-feb-2020 </td>
-                        <td>Action</td> */}
-                    </tr>
-                </table>
+
+                    {Surveys()}
+            
             </div>
         </div>
     </>
