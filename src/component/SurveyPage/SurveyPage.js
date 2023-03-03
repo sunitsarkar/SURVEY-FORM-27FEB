@@ -5,12 +5,12 @@ import hamburger from '../assets/hamburger.svg';
 import person from '../assets/person.svg'
 import { useState} from "react";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 
 
 
 const SurveyPage = () => {
-
+    const navigate=useNavigate()
         const [name, setName] = useState('');
         const [description, setDescription] = useState("");
         const [startDate, setStartDate] = useState();
@@ -30,7 +30,7 @@ const SurveyPage = () => {
     // }
 
     const handleSubmit = async (e) => {
-
+        navigate('/Questions')
         
       //  console.log(name, description, startDate , endDate , otherCriteria , type , image);
       try {
@@ -45,7 +45,8 @@ const SurveyPage = () => {
             "image" : image
         });
         console.log(res.data);
-        alert('survey added')
+        alert('survey added');
+      
     } catch (error) {
         console.error(error);
     }

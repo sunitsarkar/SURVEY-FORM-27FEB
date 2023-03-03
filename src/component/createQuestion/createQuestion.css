@@ -5,7 +5,8 @@
 }
 
 .question-section {
-    margin-top: 6vh;
+    margin-top: 3vh;
+    padding-top: 1vh;
     margin-left: 6vw;
     height: 28vh;
     width: 86vw;
@@ -66,18 +67,22 @@
     opacity: 100%;
 }
 
-.question-input::placeholder { 
+.question-input::placeholder {
     font-family: 'Open Sans', sans-serif;
     color: #878889;
     opacity: 50%;
 }
 
-
-#radio-btns { 
+.radio-btns { 
     /* border: 1px solid black; */
-    margin-left: -77vw;
-    margin-top: 2vh;
-    display: grid;
+    margin-left: 4vw;
+    margin-top: 3vh;
+}
+
+
+.radio-input { 
+    margin-left: 1vw;
+    background-color: #F4F8FD;
 }
 .radio-btns { 
     /* border: 1px solid black; */
