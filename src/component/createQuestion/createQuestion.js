@@ -4,14 +4,28 @@ import logo2 from '../assets/community.svg';
 import hamburger from '../assets/hamburger.svg';
 import person from '../assets/person.svg';
 import leftArrow from '../assets/left-arrow.svg';
-import rectangleBox from '../assets/rectangle-box.svg';
+// import rectangleBox from '../assets/rectangle-box.svg';
 import gear from '../assets/gear.svg';
-// import { useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 
 
 
 const QuestionPage = () => {
+    var n = 0;
+    const [number, setNumber] = useState(1);
+    const [question, setQuestion] = useState([""]);
+    const [option1, setOPtion1] = useState();
+    const [option2, setOPtion2] = useState();
+    const [option3, setOPtion3] = useState();
+    const [num, setNum] = useState(0);
+
+    function Newquestion() {
+
+        setQuestion([...question, ""])
+    }
+
+
     return (
         <div className="main">
             <div className="left-nav">
@@ -49,26 +63,35 @@ const QuestionPage = () => {
                         id="btn-next"
                     >Save </button>
                 </div>
-                <div className="question-section">
-                    <div className="question-title">
-                        <span >Q1</span> <span className="question" >Question </span>
-                        <img className="gear" src={gear} alt="gear" />
+                {question.map((que) => {
+                    n = n + 1;
+                    return <div className="question-section">
+                        <div className="question-title">
+                            <span >Q{n}</span> <span className="question" >Question </span>
+                            <img className="gear" src={gear} alt="gear" />
+                        </div>
+                        <div>
+                            <input
+                                className="question-input"
+                                type={'text'}
+                                placeholder={"Enter Question"} />
+                        </div>
+                        <div className="radio-btns" >
+                             <input type={"radio"} value={"Value"} /> 
+                            <input className="radio-input" type={'text'} placeholder={"Value"} />
+                             <br />
+                            <input type={"radio"} value={"Value"} /> 
+                            <input className="radio-input" type={'text'} placeholder={"Value"} />
+                             <br />
+                            <input type={"radio"} value={"Value"} />
+                            <input className="radio-input" type={'text'} placeholder={"Value"} /> 
+                        </div>
                     </div>
-                    <div>
-                        <input
-                            className="question-input"
-                            type={'text'}
-                            placeholder={"Enter Question"} />
-                    </div>
-                    <div id="radio-btns" >
-                        <input type={"radio"} value={"Value"} />  <br/>   
-                        <input type={"radio"} value={"Value"} />  <br/> 
-                        <input type={"radio"} value={"Value"} />   
-                    </div>
-                </div>
+                })}
+
                 <div className="btn-section">
-                    <button
-                        className="add-question-btn" >Add question</button>
+                    <button className="add-question-btn"
+                        onClick={() => Newquestion()}>Add question</button>
                 </div>
 
             </div>
