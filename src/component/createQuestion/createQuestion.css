@@ -9,11 +9,9 @@
     margin-left: 6vw;
     height: 28vh;
     width: 86vw;
-    background: transparent url('D:\Main Project\frntend 03 march morning\SURVEY-FORM-27FEB\src\component\assets\rectangle-box.svg') 0% 0% no-repeat padding-box;
+    background: transparent url('../assets/rectangle-box.svg') 0% 0% no-repeat padding-box;
     border-radius: 8px 8px 0px 0px;
     opacity: 1;
-
-
 }
 
 .btn-section {
@@ -80,4 +78,34 @@
     margin-left: -77vw;
     margin-top: 2vh;
     display: grid;
+}
+.radio-btns { 
+    /* border: 1px solid black; */
+    margin-left: 4vw;
+    margin-top: 3vh;
+}
+
+
+.radio-input { 
+    margin-left: 1vw;
+    background-color: #F4F8FD;
+}
+
+.preview{
+    padding-left: 10vw;
+    padding-top: 5vh;
+
+}
+.allques{
+    padding-top: 2vh;
+}
+.que{
+    color: #3286DD;
+    font: normal normal 600 18px/24px Open Sans;
+}
+.val{
+    text-align: left;
+font: normal normal 600 14px/20px Open Sans;
+border-bottom: 1px solid rgb(228, 207, 207);
+margin-right: 20vw;
 }
