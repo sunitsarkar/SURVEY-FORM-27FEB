@@ -28,7 +28,7 @@ function Preview(prop) {
                     <span className="right">
                         <span>
                             <select className="select">
-                                <option >Logout</option>
+                                <option ></option>
                             </select> </span>
                     </span>
                     <div className="picture-nav">

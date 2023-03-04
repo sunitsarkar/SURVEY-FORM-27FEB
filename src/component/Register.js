@@ -85,23 +85,23 @@ const Register = () => {
     }
 
     // validating confirm password
-    const handleConfirmPasswordChange = (e) => {
-
+    const handleConfirmPassword = (e) => {
+        const cpass= e.target.value
         setConfirmPassword(e.target.value);
-        handleConfirmPasswordBlur();
-    };
-
-    // validating passwords are matching or not
-    const handleConfirmPasswordBlur = (e) => {
-        if (password !== confirmPassword) {
+         if (password !== cpass) {
             setError("Password and Confirm Password do not match! ");
             setValidPassword("");
         } else {
             setError("");
             setValidPassword(password);
         }
-        console.log("pass ", password , "c pass" , confirmPassword);
     };
+
+    // validating passwords are matching or not
+    
+      
+       
+    
 
 
 
@@ -168,16 +168,17 @@ const Register = () => {
                             type={'password'}
                             required
                             placeholder={"Confirm Password"}
-                            onChange={handleConfirmPasswordChange} 
-                            onBlur={handleConfirmPasswordBlur} /> 
+                            onChange={handleConfirmPassword} 
+                             /> 
                         {passErr ? <div style={{ color: "red" }} >Password Invalid</div> : null}   {/* // password error displaying here */}
                         <div>
                             {error ? <p style={{ color: "red" }}>{error}</p> : null}
                         </div>
                         {/* //confirm password error displaying here */}
                     </div>
-                    <input  id="checkbox" type={'checkbox'} required /><label className="checkbox-text"> I agree to Terms & Condition receiving marketing and promotional materials</label>
-
+                    <div id="checkbox">
+                    <input   type={'checkbox'} required /><span className="checkbox-text"> I agree to Terms & Condition receiving marketing and promotional materials</span>
+                    </div>
                     <button className="btns-1" type="submit" >Register</button>
 
                 </form>

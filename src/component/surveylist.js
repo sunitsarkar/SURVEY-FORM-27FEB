@@ -25,13 +25,12 @@ function Navigation() {
             })
     }
 
-    const deleteSurvey =(name,e)=>{
+    // const deleteSurvey =(name,e)=>{
 
-        e.preventDefault();
-            axios.delete(`http://localhost:8000/survey/surveys/:name/delete`,).
-            then(res =>(console.log('deleted', res))).catch(err =>(console.log(err)))
-    
-    }
+    //     e.preventDefault();
+    //         axios.delete(`http://localhost:8000/survey/surveys/:${name}/delete`).
+    //         then(res =>(console.log('deleted', res))).catch(err =>(console.log(err)))
+    // }
 
     function Surveys(){
 
@@ -45,7 +44,9 @@ function Navigation() {
             }).catch(err=>{
                 alert(err.message)
             })
-        },[])
+        },[]);
+
+
         return <div id="survey-container">
             {
                 survey.map(list=>{
@@ -56,7 +57,7 @@ function Navigation() {
                         <td className="third-td">{list.type}</td>
                         <td className="forth-td">{list.startDate} </td>
                         <td className="fifth-td">{list.endDate}</td>
-                        <td><button>Edit</button><button onClick={(e)=>deleteSurvey(list.name,e)}>Delete</button> </td>
+                        <td><button>Edit</button><button >Delete</button> </td>
                     </tr>
                 </table>
                 })
