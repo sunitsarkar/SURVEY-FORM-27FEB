@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 
 export default function Question() {
 
+    const url='https://survey-backend-tbor.onrender.com'
+
     const [number, setNumber] = useState();
     const [question, setQuestion] = useState();
     const [option1, setOPtion1] = useState();
@@ -18,7 +20,7 @@ export default function Question() {
         //  console.log(name, description, startDate , endDate , otherCriteria , type , image);
         try {
             //instead of local host we need to use hosted backend later*************
-            const res = await axios.post("http://localhost:8000/survey/question/create", {
+            const res = await axios.post(url+"/survey/question/create", {
                 "question": question,
                 "number":num,
                 "options1": option1,

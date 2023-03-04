@@ -12,10 +12,12 @@ import { useNavigate } from "react-router-dom";
 
 function Navigation() {
     const navigate=useNavigate()
+
+    const url='https://survey-backend-tbor.onrender.com'
     // function get
     function getSurveyList() {
        
-        return  axios.get('http://localhost:8000/survey/surveys')
+        return  axios.get(url+'/survey/surveys')
             .then(res => {
                 if(res.status === 200 && res.data){
                     // console.log("ok")

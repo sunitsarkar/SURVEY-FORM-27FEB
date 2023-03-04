@@ -10,6 +10,8 @@ import { useNavigate } from "react-router-dom";
 
 
 const SurveyPage = () => {
+
+    const url='https://survey-backend-tbor.onrender.com'
     const navigate=useNavigate()
         const [name, setName] = useState('');
         const [description, setDescription] = useState("");
@@ -30,12 +32,13 @@ const SurveyPage = () => {
     // }
 
     const handleSubmit = async (e) => {
-        navigate('/Questions')
+        navigate('/Questions');
+
         
       //  console.log(name, description, startDate , endDate , otherCriteria , type , image);
       try {
         //instead of local host we need to use hosted backend later*************
-        const res = await axios.post("http://localhost:8000/survey/create", {
+        const res = await axios.post(url+"/survey/create", {
             "name": name,
             "description": description,
             "startDate": startDate,
