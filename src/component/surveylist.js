@@ -48,7 +48,7 @@ function Navigation() {
                         <td className="third-td">{list.type}</td>
                         <td className="forth-td">{list.startDate} </td>
                         <td className="fifth-td">{list.endDate}</td>
-                        <td><button>Edit</button><button>Delete</button> </td>
+                        <td><button className="btn-edit">Edit</button><button>Delete</button> </td>
                     </tr>
                 </table>
                 })
