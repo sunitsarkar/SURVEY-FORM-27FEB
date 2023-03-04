@@ -19,7 +19,7 @@ const Sign_in = () => {
                 "password": password
             });
 
-            navigate("/Aftersign")
+            navigate("/Surveylist")
             console.log(res.data);
         } catch (error) {
             console.error(error);

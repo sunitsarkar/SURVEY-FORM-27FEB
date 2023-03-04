@@ -25,6 +25,14 @@ function Navigation() {
             })
     }
 
+    const deleteSurvey =(name,e)=>{
+
+        e.preventDefault();
+            axios.delete(`http://localhost:8000/survey/surveys/:name/delete`,).
+            then(res =>(console.log('deleted', res))).catch(err =>(console.log(err)))
+    
+    }
+
     function Surveys(){
 
         const [survey,setsurvey] = useState([])
@@ -48,7 +56,7 @@ function Navigation() {
                         <td className="third-td">{list.type}</td>
                         <td className="forth-td">{list.startDate} </td>
                         <td className="fifth-td">{list.endDate}</td>
-                        <td><button>Edit</button><button>Delete</button> </td>
+                        <td><button>Edit</button><button onClick={(e)=>deleteSurvey(list.name,e)}>Delete</button> </td>
                     </tr>
                 </table>
                 })
@@ -77,9 +85,9 @@ function Navigation() {
                 <div className="top-nav">
                     <span>Logo</span>
                     <span className="right">
-                        <span>
+                        <span >
                             <select className="select">
-                                <option >Logout</option>
+                                <option  ></option>
                             </select> </span>
                     </span>
                     <div className="picture-nav">
