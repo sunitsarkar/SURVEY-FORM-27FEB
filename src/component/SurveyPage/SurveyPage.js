@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 const SurveyPage = () => {
 
-    const url='https://survey-backend-tbor.onrender.com'
+    const url='http://localhost:8000'
     const navigate=useNavigate()
         const [name, setName] = useState('');
         const [description, setDescription] = useState("");

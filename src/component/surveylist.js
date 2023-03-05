@@ -11,15 +11,15 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
 function Navigation() {
-    const navigate=useNavigate()
+    const navigate = useNavigate()
 
-    const url='https://survey-backend-tbor.onrender.com'
+    const url = 'http://localhost:8000'
     // function get
     function getSurveyList() {
-       
-        return  axios.get(url+'/survey/surveys')
+
+        return axios.get(url + '/survey/surveys')
             .then(res => {
-                if(res.status === 200 && res.data){
+                if (res.status === 200 && res.data) {
                     // console.log("ok")
                     return res.data
                 }
@@ -27,44 +27,43 @@ function Navigation() {
             })
     }
 
-    // const deleteSurvey =(name,e)=>{
+    const deleteSurvey = async (id) => {
+        await axios.delete(url+`/survey/surveys/:${id}/delete`).
+            then(res => (console.log('deleted', res))).catch(err => (console.log(err)))
+    }
 
-    //     e.preventDefault();
-    //         axios.delete(`http://localhost:8000/survey/surveys/:${name}/delete`).
-    //         then(res =>(console.log('deleted', res))).catch(err =>(console.log(err)))
-    // }
+    function Surveys() {
 
-    function Surveys(){
-
-        const [survey,setsurvey] = useState([])
-    // console.log(getUserPosts())
-        useEffect(()=>{
+        const [survey, setsurvey] = useState([])
+        // console.log(getUserPosts())
+        useEffect(() => {
             getSurveyList()
-            .then(data =>{
-                // console.log(data)
-                setsurvey(data)
-            }).catch(err=>{
-                alert(err.message)
-            })
-        },[]);
+                .then(data => {
+                    // console.log(data)
+                    setsurvey(data)
+                }).catch(err => {
+                    alert(err.message)
+                })
+        }, []);
+        console.log(survey);
 
 
         return <div id="survey-container">
             {
-                survey.map(list=>{
+                survey.map(list => {
                     return <table>
-                    <tr>
-                        <td className="first-tdd">{list.name}</td>
-                        <td className="description-table2">{list.description}</td>
-                        <td className="third-td">{list.type}</td>
-                        <td className="forth-td">{list.startDate} </td>
-                        <td className="fifth-td">{list.endDate}</td>
-                        <td><button>Edit</button><button >Delete</button> </td>
-                    </tr>
-                </table>
+                        <tr>
+                            <td className="first-tdd">{list.name}</td>
+                            <td className="description-table2">{list.description}</td>
+                            <td className="third-td">{list.type}</td>
+                            <td className="forth-td">{list.startDate} </td>
+                            <td className="fifth-td">{list.endDate}</td>
+                            <td><button>Edit</button><button onClick={()=>{deleteSurvey(list._id)}} >Delete</button> </td>
+                        </tr>
+                    </table>
                 })
             }
-    
+
         </div>
     }
 
@@ -104,7 +103,7 @@ function Navigation() {
                     </div>
                     <div className="search-container">
                         <input className="search" type="text" placeholder="Search" />
-                        <button onClick={()=>navigate('/Surveypage')}>Create</button>
+                        <button onClick={() => navigate('/Surveypage')}>Create</button>
                         <img className="sort-image" src={sort} alt="sort" />
                         <img className="sort-image" src={filter} alt="sort" />
 
@@ -120,8 +119,8 @@ function Navigation() {
                     <span>Action</span>
                 </div>
 
-                    {Surveys()}
-            
+                {Surveys()}
+
             </div>
         </div>
     </>

@@ -21,7 +21,7 @@ const Register = () => {
     const [error, setError] = useState("");
 
     const handelSubmit = async (e) => {
-        const url='https://survey-backend-tbor.onrender.com'
+        const url='http://localhost:8000'
 
         e.preventDefault();
         try {

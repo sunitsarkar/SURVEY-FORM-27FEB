@@ -9,7 +9,7 @@ const Sign_in = () => {
     const navigate = useNavigate()
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const url='https://survey-backend-tbor.onrender.com'
+    const url='http://localhost:8000'
 
     const Authsignin = async (e) => {
         console.log(email, password)
