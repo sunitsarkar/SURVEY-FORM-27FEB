@@ -21,7 +21,7 @@ const Register = () => {
     const [error, setError] = useState("");
 
     const handelSubmit = async (e) => {
-        const url='http://localhost:8000'
+        const url='https://survey-backend-5u71.onrender.com'
 
         e.preventDefault();
         try {

@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 function Navigation() {
     const navigate = useNavigate()
 
-    const url = 'http://localhost:8000'
+    const url = 'https://survey-backend-5u71.onrender.com'
     // function get
     function getSurveyList() {
 

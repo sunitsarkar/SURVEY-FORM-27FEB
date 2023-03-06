@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function Question() {
 
-    const url='http://localhost:8000'
+    const url='https://survey-backend-5u71.onrender.com'
 
     const [number, setNumber] = useState();
     const [question, setQuestion] = useState();
