@@ -32,8 +32,8 @@ const Sign_in = () => {
 
 return <div className="frontpage">
     <div className="left-side">
-        <div className="welcome-text">Welcome Page</div>
-        <div className="below-text">One line text Will be here</div>
+        <div className="welcome-text">Welcome!</div>
+        <div className="below-text">Create your Survey form easily, here</div>
         <div className="text-small">Sign in to continue access pages</div>
         <div className="small-text">Don’t Have An Account?</div>
         <Link to={"/Register"}>

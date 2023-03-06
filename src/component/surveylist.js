@@ -67,6 +67,10 @@ function Navigation() {
         </div>
     }
 
+    const logout=()=>{
+        navigate("/");
+    }
+
 
 
 
@@ -89,7 +93,8 @@ function Navigation() {
                     <span className="right">
                         <span >
                             <select className="select">
-                                <option  ></option>
+                            <option >select</option>
+                                <option onClick={logout}>logout</option>
                             </select> </span>
                     </span>
                     <div className="picture-nav">

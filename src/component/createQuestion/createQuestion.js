@@ -9,6 +9,8 @@ import gear from '../assets/gear.svg';
 import { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+
 
 
 
@@ -18,7 +20,10 @@ const QuestionPage = () => {
     const [option, setoption] = useState([""]);
     const [shift , setshift] = useState(true);
     const [title, settitle] = useState("Create Questions");
-    const [preview , setpreview] = useState("Preview")
+    const [preview , setpreview] = useState("Preview");
+    const [selectedOption, setSelectedOption] = useState('');
+
+    
     function Newquestion(){
         //  console.log(question)
         setQuestion([...question,""])
@@ -48,6 +53,21 @@ const QuestionPage = () => {
         })
         setoption(optionsave)
     }
+
+    function handleSelect(event) {
+        setSelectedOption(event.target.value);
+        console.log(setSelectedOption(event.target.value));
+        if (event.target.value == 'logout') {
+          handleLogout();
+        }
+      }
+      
+      const navigate = useNavigate();
+      function handleLogout() {
+        // redirect to first page
+        navigate('/');
+    
+      }
         
 
     return (
@@ -68,8 +88,10 @@ const QuestionPage = () => {
                     <span>Logo</span>
                     <span className="right">
                         <span>
-                            <select className="select">
-                                <option ></option>
+                        <select  value={selectedOption} onChange={handleSelect}
+                              className="select">
+                                 <option value="select">Select</option>
+                                <option value="logout">Logout</option>
                             </select> </span>
                     </span>
                     <div className="picture-nav">
