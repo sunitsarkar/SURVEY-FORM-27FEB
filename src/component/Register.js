@@ -21,7 +21,7 @@ const Register = () => {
     const [error, setError] = useState("");
 
     const handelSubmit = async (e) => {
-        const url='https://survey-backend-5u71.onrender.com'
+        const url='https://survey-backend-viqm.onrender.com'
 
         e.preventDefault();
         try {
@@ -147,7 +147,7 @@ const Register = () => {
                             value={profession}
                             onChange={handleChange} />
 
-                        {(isValid == 0 && isValid < 31) ? (
+                        {(isValid === 0 && isValid < 31) ? (
                             // <span style={{ color: "green" }}>Valid profession!</span>
                             null
                         ) : (

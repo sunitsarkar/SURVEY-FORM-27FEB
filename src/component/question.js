@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 
 export default function Question() {
 
-    const url='https://survey-backend-5u71.onrender.com'
+    const url='https://survey-backend-viqm.onrender.com'
 
     const [number, setNumber] = useState();
     const [question, setQuestion] = useState();
@@ -27,14 +27,17 @@ export default function Question() {
                 "options2": option2,
                 "options3": option3
             });
-            console.log(res.data);
+            // console.log(res.data);
         } catch (error) {
             console.error(error);
         }
     }
-    const navigate=useNavigate()
+    const navigate=useNavigate();
+    const location=useLocation();
     const save=()=>{
-        navigate("/AllQuestion")
+        navigate("/AllQuestion",{state:{
+            ref: location.state.ref
+        }})
     }
 
     return <div>

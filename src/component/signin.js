@@ -5,27 +5,46 @@ import axios from "axios";
 
 
 
+
 const Sign_in = () => {
     const navigate = useNavigate()
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const url='https://survey-backend-5u71.onrender.com'
+    const url='https://survey-backend-viqm.onrender.com'
 
     const Authsignin = async (e) => {
         console.log(email, password)
-        e.preventDefault()
-        try {
-            const res = await axios.post(url+"/signin", {
-                "email": email,
-                "password": password
-            });
+        e.preventDefault();
+        axios.post(url+"/signin", {
+            "email": email,
+            "password": password
+        }).then((res)=>{
+            if(res.data.status === 'success'){
+                window.localStorage.setItem('token',res.data.token);
 
-            navigate("/Surveylist")
-            console.log(res.data);
-        } catch (error) {
+                navigate("/Surveylist",{
+                    state:{
+                      ref:email
+                    }
+                  })
+            }
+        }).catch((error)=>{
             console.error(error);
             alert("Invalid Credientials")
-        }
+        })
+
+        // try {
+        //     const res = await axios.post(url+"/signin", {
+        //         "email": email,
+        //         "password": password
+        //     });
+
+        //     navigate("/Surveylist")
+        //     console.log(res.data);
+        // } catch (error) {
+        //     console.error(error);
+        //     alert("Invalid Credientials")
+        // }
        
     }
 

@@ -8,16 +8,19 @@ import filter from './assets/sortfilter.svg'
 import person from './assets/person.svg'
 import "./SurveyList.css"
 import axios from 'axios';
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function Navigation() {
-    const navigate = useNavigate()
+    const location=useLocation();
+    const navigate = useNavigate();
+    const ref=location.state.ref;
+    const headers = { "Authorization": localStorage.getItem("token") };
 
-    const url = 'https://survey-backend-5u71.onrender.com'
+    const url = 'https://survey-backend-viqm.onrender.com'
     // function get
     function getSurveyList() {
 
-        return axios.get(url + '/survey/surveys')
+        return axios.get(url + `/survey/surveys?ref=${ref}`,{headers})
             .then(res => {
                 if (res.status === 200 && res.data) {
                     // console.log("ok")
@@ -28,8 +31,7 @@ function Navigation() {
     }
 
     const deleteSurvey = async (id) => {
-        await axios.delete(url+`/survey/surveys/:${id}/delete`).
-            then(res => (console.log('deleted', res))).catch(err => (console.log(err)))
+        await axios.delete(url + `/survey/surveys/:${id}/delete`).then(res => (console.log('deleted', res))).catch(err => (console.log(err)))
     }
 
     function Surveys() {
@@ -45,20 +47,20 @@ function Navigation() {
                     alert(err.message)
                 })
         }, []);
-        console.log(survey);
+        // console.log(survey);
 
 
         return <div id="survey-container">
             {
                 survey.map(list => {
-                    return <table>
+                    return <table key={list._id}>
                         <tr>
                             <td className="first-tdd">{list.name}</td>
                             <td className="description-table2">{list.description}</td>
                             <td className="third-td">{list.type}</td>
                             <td className="forth-td">{list.startDate} </td>
                             <td className="fifth-td">{list.endDate}</td>
-                            <td><button>Edit</button><button onClick={()=>{deleteSurvey(list._id)}} >Delete</button> </td>
+                            <td><button>Edit</button><button onClick={() => { deleteSurvey(list._id) }} >Delete</button> </td>
                         </tr>
                     </table>
                 })
@@ -67,8 +69,11 @@ function Navigation() {
         </div>
     }
 
-    const logout=()=>{
+    const logout = () => {
+        localStorage.removeItem('token');
         navigate("/");
+        alert("Logged Out");
+        document.location.reload()
     }
 
 
@@ -91,11 +96,7 @@ function Navigation() {
                 <div className="top-nav">
                     <span>Logo</span>
                     <span className="right">
-                        <span >
-                            <select className="select">
-                            <option >select</option>
-                                <option onClick={logout}>logout</option>
-                            </select> </span>
+                        <button onClick={logout}>logout</button>
                     </span>
                     <div className="picture-nav">
                         <img className="sort-image-person" src={person} alt="Person" />
@@ -108,7 +109,7 @@ function Navigation() {
                     </div>
                     <div className="search-container">
                         <input className="search" type="text" placeholder="Search" />
-                        <button onClick={() => navigate('/Surveypage')}>Create</button>
+                        <button onClick={() => navigate('/Surveypage',{state:{ref:ref}})}>Create</button>
                         <img className="sort-image" src={sort} alt="sort" />
                         <img className="sort-image" src={filter} alt="sort" />
 

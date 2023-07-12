@@ -7,9 +7,8 @@ import leftArrow from '../assets/left-arrow.svg';
 // import rectangleBox from '../assets/rectangle-box.svg';
 import gear from '../assets/gear.svg';
 import { useState } from "react";
-import axios from "axios";
-import { Link } from "react-router-dom";
-import { useNavigate } from 'react-router-dom';
+
+import { useLocation, useNavigate } from 'react-router-dom';
 
 
 
@@ -22,6 +21,8 @@ const QuestionPage = () => {
     const [title, settitle] = useState("Create Questions");
     const [preview , setpreview] = useState("Preview");
     const [selectedOption, setSelectedOption] = useState('');
+    const location=useLocation();
+    const ref=location.state.ref;
 
     
     function Newquestion(){
@@ -40,34 +41,29 @@ const QuestionPage = () => {
         }
     }
     function savedata(value,index){
-        console.log(question);
+        // console.log(question);
         const Newquestion=question.map((que,queindex)=>{
             return queindex === index ? value : que 
         })
         setQuestion(Newquestion)
     }
-
-    function saveoption(value, index){
-        const optionsave=option.map((opt,optionindex)=>{
-            return optionindex === index ? value : opt
-        })
-        setoption(optionsave)
-    }
-
-    function handleSelect(event) {
-        setSelectedOption(event.target.value);
-        console.log(setSelectedOption(event.target.value));
-        if (event.target.value == 'logout') {
-          handleLogout();
-        }
-      }
-      
       const navigate = useNavigate();
-      function handleLogout() {
-        // redirect to first page
-        navigate('/');
-    
-      }
+      const logout = () => {
+        localStorage.removeItem('token');
+        navigate("/");
+        alert("Logged Out");
+        document.location.reload()
+    };
+
+    const handleSubmit=()=>{
+        alert("Questions saved Successfully");
+        navigate("/Surveylist",{
+            state:{
+                ref:ref
+            }
+        })
+    }
+      
         
 
     return (
@@ -87,12 +83,7 @@ const QuestionPage = () => {
                 <div className="top-nav">
                     <span>Logo</span>
                     <span className="right">
-                        <span>
-                        <select  value={selectedOption} onChange={handleSelect}
-                              className="select">
-                                 <option value="select">Select</option>
-                                <option value="logout">Logout</option>
-                            </select> </span>
+                        <button onClick={logout}>logout</button>
                     </span>
                     <div className="picture-nav">
                         <img className="sort-image-person" src={person} alt="Person" />
@@ -104,15 +95,15 @@ const QuestionPage = () => {
                     <button className="btns" id="btn-cancel" onClick={previewpage}>Preview</button>
                     <button
                         type="submit"
-                        // onClick={handleSubmit}
+                        onClick={handleSubmit}
                         className="btns"
                         id="btn-next"
-                        onClick={()=>alert("Questions saved Successfully")}
+                        // onClick={()=>alert("Questions saved Successfully")}
                     >Save </button>
                 </div>
    {shift && <div>  {question.map((que,index)=>{
                     n=n+1;
-                return <div className="question-section">
+                return <div  className="question-section">
                     <div className="question-title">
                         <span >Q{n}</span> <span className="question" >Question </span>
                         <img className="gear" src={gear} alt="gear" />

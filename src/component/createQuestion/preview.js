@@ -6,9 +6,20 @@ import person from '../assets/person.svg';
 import leftArrow from '../assets/left-arrow.svg';
 // import {useLocation} from 'react-router-dom';
 import React from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function Preview(prop) {
-    const que = prop.question
+    const navigate=useNavigate();
+    const que = prop.question;
+    const location=useLocation();
+    const ref=location.state.ref;
+    const handleSubmit=()=>{
+        navigate("/Surveylist",{
+            state:{
+                ref:ref
+            }
+        })
+    }
     return (
         <div className="main">
             <div className="left-nav">
@@ -41,7 +52,7 @@ function Preview(prop) {
                     <button className="btns" id="btn-cancel">Preview</button>
                     <button
                         type="submit"
-                        // onClick={handleSubmit}
+                        onClick={handleSubmit}
                         className="btns"
                         id="btn-next"
                     >Save </button>

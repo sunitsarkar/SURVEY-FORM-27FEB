@@ -5,13 +5,13 @@ import hamburger from '../assets/hamburger.svg';
 import person from '../assets/person.svg'
 import { useState} from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 
 
 const SurveyPage = () => {
 
-    const url='https://survey-backend-5u71.onrender.com'
+    const url='https://survey-backend-viqm.onrender.com'
     const navigate=useNavigate()
         const [name, setName] = useState('');
         const [description, setDescription] = useState("");
@@ -20,25 +20,16 @@ const SurveyPage = () => {
         const [otherCriteria, setotherCriteria] = useState("");
         const [type, setType] = useState("");
         const [image, setImage] = useState("");
-
-    // const AuthSurvey = (e) => {
-    //     e.preventDefault();
-    //     try {
-
-
-    //     } catch (error) {
-
-    //     }
-    // }
+        const location=useLocation();
+        const ref=location.state.ref;
+        const headers = { "Authorization": localStorage.getItem("token") };
 
     const handleSubmit = async (e) => {
-        navigate('/Questions');
-
-        
       //  console.log(name, description, startDate , endDate , otherCriteria , type , image);
       try {
         //instead of local host we need to use hosted backend later*************
         const res = await axios.post(url+"/survey/create", {
+            "ref":ref,
             "name": name,
             "description": description,
             "startDate": startDate,
@@ -46,13 +37,25 @@ const SurveyPage = () => {
             "otherCriteria": otherCriteria,
             "type": type,
             "image" : image
-        });
+        },{headers});
         console.log(res.data);
         alert('survey added');
+        navigate('/Questions',{
+            state:{
+                ref:ref
+            }
+        });
       
     } catch (error) {
         console.error(error);
     }
+    };
+
+    const logout = () => {
+        localStorage.removeItem('token');
+        navigate("/");
+        alert("Logged Out");
+        document.location.reload()
     }
 
 
@@ -74,10 +77,7 @@ const SurveyPage = () => {
                     <div className="top-nav">
                         <span>Logo</span>
                         <span className="right">
-                            <span>
-                                <select className="select">
-                                    <option >Logout</option>
-                                </select> </span>
+                        <button onClick={logout}>Logout</button>
                         </span>
                         <div className="picture-nav">
                             <img className="sort-image-person" src={person} alt="Person" />
@@ -85,7 +85,7 @@ const SurveyPage = () => {
                     </div>
                     <div className="box">
                         <div id="text">Create Survey</div>
-                        <button className="btns" id="btn-cancel">Cancel</button>
+                        <button className="btns" id="btn-cancel" onClick={()=>{navigate("/Surveylist",{state:{ref:ref}})}}>Cancel</button>
                         <button
                             type="submit"
                             onClick={handleSubmit}
