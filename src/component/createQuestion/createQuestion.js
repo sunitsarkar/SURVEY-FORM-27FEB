@@ -4,9 +4,9 @@ import logo2 from '../assets/community.svg';
 import hamburger from '../assets/hamburger.svg';
 import person from '../assets/person.svg';
 import leftArrow from '../assets/left-arrow.svg';
-// import rectangleBox from '../assets/rectangle-box.svg';
 import gear from '../assets/gear.svg';
 import { useState } from "react";
+import axios from "axios";
 
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -14,57 +14,80 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 
 const QuestionPage = () => {
-    var n=0;
-    const [question, setQuestion] = useState([""]);
-    const [option, setoption] = useState([""]);
-    const [shift , setshift] = useState(true);
-    const [title, settitle] = useState("Create Questions");
-    const [preview , setpreview] = useState("Preview");
-    const [selectedOption, setSelectedOption] = useState('');
-    const location=useLocation();
-    const ref=location.state.ref;
+    const url='https://survey-backend-viqm.onrender.com'
 
-    
-    function Newquestion(){
+    var n = 0;
+    const [question, setQuestion] = useState([""]);
+    const [shift, setshift] = useState(true);
+    const [title, settitle] = useState("Create Questions");
+    const [preview, setpreview] = useState('preview');
+    const location = useLocation();
+    const ref = location.state.ref;
+    const surveyName = location.state.surveyName;
+    const [option1, setoption1] = useState([""]);
+    const [option2, setoption2] = useState([""]);
+    const [option3, setoption3] = useState([""]);
+    const [selectedOption, setSelectedOption] = useState('no option selected');
+    const [num,setNum]=useState(0)
+   
+
+    function Newquestion() {
         //  console.log(question)
+        axios.post(url+'/survey/question/create',{
+            surveyName:surveyName,
+            question: question[num],
+            options:selectedOption
+        }).then((res )=>{ console.log(res)})
+        console.log(surveyName,question,option1,option2,option3,selectedOption);
         setQuestion([...question,""])
+        setNum(num+1)
+        
     }
-    function previewpage(){
-        if(shift===true){
-        setshift(false)
-        settitle("Preview")
-        setpreview("Close Preview")}
-        else{
+    function previewpage() {
+        if (shift === true) {
+            setshift(false)
+            settitle("Preview")
+            setpreview("Close")
+        }
+        else {
             setshift(true)
             settitle("Create Questions")
             setpreview("Preview")
         }
     }
-    function savedata(value,index){
+    function savedata(value, index) {
         // console.log(question);
-        const Newquestion=question.map((que,queindex)=>{
-            return queindex === index ? value : que 
+        const Newquestion = question.map((que, queindex) => {
+            return queindex === index ? value : que
         })
         setQuestion(Newquestion)
     }
-      const navigate = useNavigate();
-      const logout = () => {
+    const navigate = useNavigate();
+    const logout = () => {
         localStorage.removeItem('token');
         navigate("/");
         alert("Logged Out");
         document.location.reload()
     };
 
-    const handleSubmit=()=>{
+    const handleSubmit = () => {
         alert("Questions saved Successfully");
-        navigate("/Surveylist",{
-            state:{
-                ref:ref
+        // console.log(surveyName,question,option1,option2,option3,selectedOption);
+
+        axios.post(url+'/survey/question/create',{
+            surveyName:surveyName,
+            question: question[num],
+            options:selectedOption
+        }).then((res )=>{ console.log(res)})
+        
+        navigate("/Surveylist", {
+            state: {
+                ref: ref
             }
         })
     }
-      
-        
+
+
 
     return (
         <div className="main">
@@ -92,66 +115,65 @@ const QuestionPage = () => {
                 <div className="box">
                     <img className="left-arrow" src={leftArrow} alt="leftArrow" />
                     <div id="text">{title}</div>
-                    <button className="btns" id="btn-cancel" onClick={previewpage}>Preview</button>
+                    <button className="btns" id="btn-cancel" onClick={previewpage}>{preview}</button>
                     <button
                         type="submit"
                         onClick={handleSubmit}
                         className="btns"
                         id="btn-next"
-                        // onClick={()=>alert("Questions saved Successfully")}
                     >Save </button>
                 </div>
-   {shift && <div>  {question.map((que,index)=>{
-                    n=n+1;
-                return <div  className="question-section">
-                    <div className="question-title">
-                        <span >Q{n}</span> <span className="question" >Question </span>
-                        <img className="gear" src={gear} alt="gear" />
-                    </div>
-                    <div>
-                        <input onChange={(e)=>savedata(e.target.value,index)}
-                            className="question-input"
-                            type={'text'}
-                            placeholder={"Enter Question"} />
-                    </div>
-                    <div className="radio-btns" >
-                             <input type={"radio"} name="k" value={"Value"} /> 
-                            <input className="radio-input" type={'text'} placeholder={"Value"} />
-                             <br />
-                            <input type={"radio"} name="k" value={"Value"} /> 
-                            <input className="radio-input" type={'text'} placeholder={"Value"} />
-                             <br />
-                             <input type={"radio"} name="k" value={"Value"} /> 
-                             <input className="radio-input" type={'text'} placeholder={"Value"} />
-                             <br />
-                           
-                    </div>
-                </div>
-        }) }
+                {shift && <div>  {question.map((que, index) => {
+                    n = n + 1;
+                    return <div className="question-section">
+                        <div className="question-title">
+                            <span >Q{n}</span> <span className="question" >Question </span>
+                            <img className="gear" src={gear} alt="gear" />
+                        </div>
+                        <div>
+                            <input onChange={(e) => savedata(e.target.value, index)}
+                                className="question-input"
+                                type={'text'}
+                                placeholder={"Enter Question"} />
+                        </div>
+                        <div className="radio-btns" >
+                            <input type={"radio"} name="k"  onClick={()=>{setSelectedOption(option1)}}/>
+                            <input className="radio-input" value={option1} placeholder="enter option text" onChange={(e)=> setoption1(e.target.value)}/>
+                            <br />
+                            <input type={"radio"} name="k"  onClick={()=>{selectedOption(option2)}}/>
+                            <input className="radio-input" value={option2} placeholder="enter option text" onChange={(e)=> setoption2(e.target.value)}/>
+                            <br />
+                            <input type={"radio"} name="k"  onClick={()=>{setSelectedOption(option3)}}/>
+                            <input className="radio-input" value={option3} placeholder="enter option text" onChange={(e)=> setoption3(e.target.value)} />
+                            <br />
 
-                <div className="btn-section">
-                    <button  className="add-question-btn" 
-                    onClick={()=>Newquestion()}>Add question</button>
-                </div>
+                        </div>
+                    </div>
+                })}
+
+                    <div className="btn-section">
+                        <button className="add-question-btn"
+                            onClick={() => Newquestion()}>Add question</button>
+                    </div>
                 </div>}
-                {!shift && <div>    
+                {!shift && <div>
                     {
-                        question.map((que ,index )=>{
+                        question.map((que, index) => {
                             return <div className="preview">
-                                <div className="que">Question {index+1}</div>
+                                <div className="que">Question {index + 1}</div>
                                 <div className="allques">{que}</div>
-                                <div className="val">Values</div>
-                                </div>
+                                <div className="val">{selectedOption}</div>
+                            </div>
                         })
                     }
-                    
-                    </div>}
+
+                </div>}
             </div>
         </div>
     )
 }
 
-export default QuestionPage ;
+export default QuestionPage;
 
 
 

@@ -12,6 +12,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 const SurveyPage = () => {
 
     const url='https://survey-backend-viqm.onrender.com'
+    
     const navigate=useNavigate()
         const [name, setName] = useState('');
         const [description, setDescription] = useState("");
@@ -42,7 +43,8 @@ const SurveyPage = () => {
         alert('survey added');
         navigate('/Questions',{
             state:{
-                ref:ref
+                ref:ref,
+                surveyName:name
             }
         });
       

@@ -21,7 +21,7 @@ const Register = () => {
     const [error, setError] = useState("");
 
     const handelSubmit = async (e) => {
-        const url='https://survey-backend-viqm.onrender.com'
+        const url= 'https://survey-backend-viqm.onrender.com'
 
         e.preventDefault();
         try {

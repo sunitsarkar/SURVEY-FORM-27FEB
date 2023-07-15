@@ -82,7 +82,7 @@
 
 .radio-input { 
     margin-left: 1vw;
-    background-color: #F4F8FD;
+    background-color: #9fccf7;
 }
 .radio-btns { 
     /* border: 1px solid black; */
@@ -90,11 +90,6 @@
     margin-top: 3vh;
 }
 
-
-.radio-input { 
-    margin-left: 1vw;
-    background-color: #F4F8FD;
-}
 
 .preview{
     padding-left: 10vw;

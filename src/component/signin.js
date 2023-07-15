@@ -6,14 +6,14 @@ import axios from "axios";
 
 
 
-const Sign_in = () => {
+const SignIn = () => {
     const navigate = useNavigate()
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const url='https://survey-backend-viqm.onrender.com'
 
     const Authsignin = async (e) => {
-        console.log(email, password)
+        // console.log(email, password)
         e.preventDefault();
         axios.post(url+"/signin", {
             "email": email,
@@ -83,4 +83,4 @@ return <div className="frontpage">
 
 }
 
-export default Sign_in
+export default SignIn

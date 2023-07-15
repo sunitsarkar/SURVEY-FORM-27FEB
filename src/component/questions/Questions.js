@@ -1,64 +1,44 @@
 import React from "react";
 import { useEffect, useState } from "react"
-import logo1 from './assets/logo.svg';
-import logo2 from './assets/community.svg';
-import hamburger from './assets/hamburger.svg';
-import sort from './assets/sort.svg';
-import filter from './assets/sortfilter.svg'
-import person from './assets/person.svg'
-import "./SurveyList.css"
+import logo1 from '../assets/logo.svg'
+import logo2 from '../assets/community.svg';
+import hamburger from '../assets/hamburger.svg';
+import sort from '../assets/sort.svg';
+import filter from '../assets/sortfilter.svg'
+import person from '../assets/person.svg'
+import './questions.css'
 import axios from 'axios';
 import { useLocation, useNavigate } from "react-router-dom";
 
-function Navigation() {
+export default function Getquestions() {
     const location = useLocation();
     const navigate = useNavigate();
-    const ref = location.state.ref;
-    const headers = { "Authorization": localStorage.getItem("token") };
+    const name = location.state.name;
 
     const url = 'https://survey-backend-viqm.onrender.com'
 
-    function Surveys() {
+    function Questions() {
 
-        const [survey, setsurvey] = useState([])
-        // get survey
+        const [question, setQuestion] = useState([])
+        // get question
         useEffect(() => {
-            axios.get(url + `/survey/surveys?ref=${ref}`, { headers })
+            axios.get(url + `/survey/question/questions?name=${name}`)
             .then(res => {
-                if (res.status === 200 && res.data) {
-                    setsurvey(res.data)
-                }
+                setQuestion(res.data);
+                // console.log(res.data)
             }).catch(err => {
                 alert(err.message)
             })
         });
-        // delete survey
-        const deleteSurvey = async (id) => {
-            await axios.delete(url + `/survey/delete?id=${id}`).then((res) =>
-                (console.log('deleted', res))).catch(err => (console.log(err)))
-        }
-
-        const getQuestion= async (surveyName)=>{
-            navigate('/getquestions',{
-                state:{
-                    name:surveyName
-                }
-            })
-        }
 
         return <div id="survey-container">
             {
-                survey.map(list => {
+                question.map(list => {
                     return <table key={list._id} >
                         <tr>
-                            <td className="first-tdd">{list.name}</td>
-                            <td className="description-table2">{list.description}</td>
-                            <td className="third-td">{list.type}</td>
-                            <td className="forth-td">{list.startDate} </td>
-                            <td className="fifth-td">{list.endDate}</td>
-                            <td><button onClick={()=>{getQuestion(list.name)}}>Show question</button>
-                                <button onClick={() => { deleteSurvey(list._id) }} >Delete</button>
-                            </td>
+                            <td className="first-tdd">{list.surveyName}</td>
+                            <td className="description-table2">{list.question}</td>
+                            <td className="third-td">{list.options}</td>
                         </tr>
                     </table>
                 })
@@ -73,15 +53,6 @@ function Navigation() {
         alert("Logged Out");
         document.location.reload()
     }
-
-    const handelCreate = () => {
-        navigate('/Surveypage', {
-            state:
-                { ref: ref }
-        })
-    }
-
-
 
 
     return <>
@@ -110,31 +81,25 @@ function Navigation() {
                 {/* ----------------------------------------------- */}
                 <div class="navbar">
                     <div class="logo">
-                        <span>Survey List</span>
+                        <span>Questions List</span>
                     </div>
                     <div className="search-container">
                         <input className="search" type="text" placeholder="Search" />
-                        <button onClick={handelCreate}>Create</button>
                         <img className="sort-image" src={sort} alt="sort" />
                         <img className="sort-image" src={filter} alt="sort" />
-
                     </div>
                 </div>
 
                 <div className="title">
-                    <span>Name</span>
-                    <span className="description-table">Description</span>
-                    <span>Type</span>
-                    <span>Start Date</span>
-                    <span>End Date</span>
-                    <span>Action</span>
+                    <span>Survey Name</span>
+                    <span className="description-table">Question</span>
+                    <span>Answer</span>
                 </div>
 
-                {Surveys()}
+                {Questions()}
 
             </div>
         </div>
     </>
 }
 
-export default Navigation
