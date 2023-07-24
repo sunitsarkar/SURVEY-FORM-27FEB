@@ -32,20 +32,6 @@ const SignIn = () => {
             console.error(error);
             alert("Invalid Credientials")
         })
-
-        // try {
-        //     const res = await axios.post(url+"/signin", {
-        //         "email": email,
-        //         "password": password
-        //     });
-
-        //     navigate("/Surveylist")
-        //     console.log(res.data);
-        // } catch (error) {
-        //     console.error(error);
-        //     alert("Invalid Credientials")
-        // }
-       
     }
 
 
