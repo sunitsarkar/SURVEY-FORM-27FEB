@@ -19,14 +19,15 @@ const Register = () => {
     const [passErr, setPassErr] = useState(false)                // for password error
     const [confirmPassword, setConfirmPassword] = useState(0);
     const [error, setError] = useState("");
+    const [pherr, setPherr] = useState('');
 
     const handelSubmit = async (e) => {
-        const url= 'https://survey-backend-viqm.onrender.com'
+        const url = 'https://survey-backend-viqm.onrender.com'
 
         e.preventDefault();
         try {
             //instead of local host we need to use hosted backend later*************
-            const res = await axios.post(url+"/", {
+            const res = await axios.post(url + "/", {
                 "name": name,
                 "email": email,
                 "phone": phone,
@@ -59,8 +60,8 @@ const Register = () => {
         // const specialCharacters = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
         // const specialLetters = /[A-Za-z]+/;
         const item = e.target.value;
-             setPassword(item);
-             console.log('passwordhandler ', password);
+        setPassword(item);
+        console.log('passwordhandler ', password);
         if (item.length < 6) {
             setPassErr(true)
         }
@@ -70,7 +71,7 @@ const Register = () => {
         else {
             setPassErr(false)
         }
-        
+
     }
 
     //validating email address
@@ -87,9 +88,9 @@ const Register = () => {
 
     // validating confirm password
     const handleConfirmPassword = (e) => {
-        const cpass= e.target.value
+        const cpass = e.target.value
         setConfirmPassword(e.target.value);
-         if (password !== cpass) {
+        if (password !== cpass) {
             setError("Password and Confirm Password do not match! ");
             setValidPassword("");
         } else {
@@ -99,10 +100,20 @@ const Register = () => {
     };
 
     // validating passwords are matching or not
-    
-      
-       
-    
+
+    const handelphone = (e) => {
+
+        setPhone(e.target.value);
+        const value=e.target.value;
+        const regex=value.match(/\d/g).length===10;
+        if (!regex){
+            setPherr(<div style={{ color: "red" }}>Please enter a valid phone number</div>)
+        }else{
+            setPherr('')
+        }
+      }
+
+
 
 
 
@@ -122,55 +133,59 @@ const Register = () => {
                     <div className="heading1">Register</div>
                     <div className="heading2" >Register to continue access pages</div>
                     <div className="input-box">
-                        <input  onChange={(e) => { setName(e.target.value) }}
+                        <input onChange={(e) => { setName(e.target.value) }}
                             value={name}
-                            required className="reg-input" type={'text'} placeholder={"Name"}  />
-                        <input className="reg-input"  type={'email'}
+                            required className="reg-input" type={'text'} placeholder={"Name"} />
+                        <input className="reg-input" type={'email'}
                             placeholder={"Email"}
                             required
                             onChange={handleEmailChange} />
-                              {(emailError && emailError.length !== 0) ? <p>{emailError}</p> : null}
+                        {(emailError && emailError.length !== 0) ? <p>{emailError}</p> : null}
                         {/* to display email error */}
                     </div>
                     <div className="input-box">
+
                     <input
-                         className="reg-input"
-                            type={'text'}
-                            pattern="[0-9]{1}[0-9]{9}"
-                            placeholder={"Phone"}
-                            onChange={(e) => { setPhone(e.target.value) }} />
-                        <input
                             className="reg-input"
                             type={'text'}
                             // required
                             placeholder={"Profession"}
                             value={profession}
                             onChange={handleChange} />
+                            
+                        <input
+                            className="reg-input"
+                            type={'text'}
+                            pattern="[0-9]{1}[0-9]{9}"
+                            placeholder={"Phone"}
+                            onChange={handelphone} />
+                            {(pherr && pherr.length !== 0) ? <p>{pherr}</p> : null}
 
-                        {(isValid === 0 && isValid < 31) ? (
+
+                        {/* {(isValid === 0 && isValid < 31) ? (
                             // <span style={{ color: "green" }}>Valid profession!</span>
                             null
                         ) : (
                             <div style={{ color: "red" }}>
                                 Profession can only contain upto 30 letters and numbers.
                             </div>
-                        )}
+                        )} */}
                     </div>
                     <div className="input-box">
-                    <input
-                        className="reg-input"
+                        <input
+                            className="reg-input"
                             type={'password'}
                             placeholder={"Password"}
                             required
                             onChange={PasswordHandler} />
 
                         <input
-                        className="reg-input"
+                            className="reg-input"
                             type={'password'}
                             required
                             placeholder={"Confirm Password"}
-                            onChange={handleConfirmPassword} 
-                             /> 
+                            onChange={handleConfirmPassword}
+                        />
                         {passErr ? <div style={{ color: "red" }} >Password Invalid</div> : null}   {/* // password error displaying here */}
                         <div>
                             {error ? <p style={{ color: "red" }}>{error}</p> : null}
@@ -178,7 +193,7 @@ const Register = () => {
                         {/* //confirm password error displaying here */}
                     </div>
                     <div id="checkbox">
-                    <input   type={'checkbox'} required /><span className="checkbox-text"> I agree to Terms & Condition receiving marketing and promotional materials</span>
+                        <input type={'checkbox'} required /><span className="checkbox-text"> I agree to Terms & Condition receiving marketing and promotional materials</span>
                     </div>
                     <button className="btns-1" type="submit" >Register</button>
 

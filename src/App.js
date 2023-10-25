@@ -21,8 +21,6 @@ const App = () => {
           <Route path={"/getquestions"} element={<Getquestions/>}/>
         </Routes>
       </Router>
-
-
     </div>
   );
 }
